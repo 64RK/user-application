@@ -12,7 +12,7 @@ import javax.persistence.*;
 
 @Component
 @Transactional
-public class AuditTrailListener implements Runnable{
+public class AuditTrailListener {
 
     private static BackendController backendController;
 
@@ -49,7 +49,7 @@ public class AuditTrailListener implements Runnable{
 
     @PostPersist
     @PostUpdate
-    private void afterAnyUpdate(User user) throws InterruptedException {
+    private void afterAnyUpdate(User user) {
         log.info("[USER AUDIT] add/update complete for user: " + user.getId());
         new Thread(() -> {
             backendController.saveDepartment(user.getId());
@@ -58,7 +58,8 @@ public class AuditTrailListener implements Runnable{
             backendController.saveAccount(user.getId());
         }).start();
     }
-
+    //publisher consumer method
+    //controller advice exception handling
     @PostRemove
     private void afterRemoving(User user) throws InterruptedException {
         log.info("[USER AUDIT] delete complete for user: " + user.getId());
@@ -75,9 +76,5 @@ public class AuditTrailListener implements Runnable{
         log.info("[USER AUDIT] user loaded from database: " + user.getId());
     }
 
-    @Override
-    public void run() {
-
-    }
 
 }

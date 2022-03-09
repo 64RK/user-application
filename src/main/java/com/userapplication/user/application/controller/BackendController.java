@@ -36,7 +36,7 @@ public class BackendController {
         System.out.println("updating department");
     }
 
-@Transactional
+    @Transactional
     public void deleteAccount(long id){
         accountService.deleteById(id);
         System.out.println("deleting account");

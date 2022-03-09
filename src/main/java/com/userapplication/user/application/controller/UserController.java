@@ -25,24 +25,24 @@ public class UserController {
     }
 
     @PostMapping("/user")
-    public void createCourse(@RequestBody User user){
+    public void createUser(@RequestBody User user){
         userService.save(user);
     }
 
     @PutMapping("/user/{id}")
-    public void updateCourse(@PathVariable long id, @RequestBody User user){
+    public void updateUser(@PathVariable long id, @RequestBody User user){
         userService.save(user);
     }
 
     @DeleteMapping("/user/{id}")
-    public void updateCourse(@PathVariable long id){
+    public void deleteUser(@PathVariable long id){
 
         userService.deleteById(id);
     }
 
     @GetMapping("/user/{id}/age")
     public int getUserAge(@PathVariable  long id){
-
+//        throw new RuntimeException("dummy");
         return userService.getById(id).getUserAge();
     }
 

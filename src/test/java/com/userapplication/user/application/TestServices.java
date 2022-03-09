@@ -1,7 +1,9 @@
 package com.userapplication.user.application;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.userapplication.user.application.bean.User;
 import com.userapplication.user.application.controller.UserController;
+import com.userapplication.user.application.repository.UserRepository;
 import com.userapplication.user.application.service.UserService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -35,4 +37,14 @@ public class TestServices {
             User result1 = userController.getUser(100001);
             Assertions.assertEquals(user, result1);
         }
+
+
+
+
+
+
+
+
 }
+
+//RESt test case
