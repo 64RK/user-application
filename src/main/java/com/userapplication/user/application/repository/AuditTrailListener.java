@@ -1,7 +1,10 @@
 package com.userapplication.user.application.repository;
 
 import com.userapplication.user.application.bean.User;
-import com.userapplication.user.application.controller.BackendController;
+import com.userapplication.user.application.controller.BackendService;
+import com.userapplication.user.application.service.AccountService;
+import com.userapplication.user.application.service.DepartmentService;
+import com.userapplication.user.application.service.UserService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,14 +17,9 @@ import javax.persistence.*;
 @Transactional
 public class AuditTrailListener {
 
-    private static BackendController backendController;
-
     @Autowired
-    public void init(BackendController backendController)
-    {
-        AuditTrailListener.backendController = backendController;
-        log.info("Initializing with dependency ["+ backendController +"]");
-    }
+    private static BackendService backendController;
+    private static Log log = LogFactory.getLog(AuditTrailListener.class);
 
 //observer pattern
 //    JPA specifies seven optional lifecycle events that are called:
@@ -34,7 +32,11 @@ public class AuditTrailListener {
 //    after an entity is updated – @PostUpdate
 //    after an entity has been loaded – @PostLoad
 
-    private static Log log = LogFactory.getLog(AuditTrailListener.class);
+    @Autowired
+    public void init(BackendService backendController) {
+        AuditTrailListener.backendController = backendController;
+        log.info("Initializing with dependency [" + backendController + "]");
+    }
 
     @PrePersist
     @PreUpdate
@@ -58,8 +60,7 @@ public class AuditTrailListener {
             backendController.saveAccount(user.getId());
         }).start();
     }
-    //publisher consumer method
-    //controller advice exception handling
+
     @PostRemove
     private void afterRemoving(User user) throws InterruptedException {
         log.info("[USER AUDIT] delete complete for user: " + user.getId());

@@ -19,9 +19,10 @@ public class User {
     protected long userAccountId;
     protected long userDepartmentId;
 
-    public User(){
+    public User() {
 
     }
+
     public User(long id, String userName, int userAge, long userAccountId, long userDepartmentId) {
         this.id = id;
         this.userName = userName;

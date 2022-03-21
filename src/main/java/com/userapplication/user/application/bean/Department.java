@@ -4,7 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
-public class Department{
+public class Department {
 
     @Id
     private long id;
@@ -12,7 +12,8 @@ public class Department{
     private int userAge;
     private long userDepartmentId;
 
-    public Department(){}
+    public Department() {
+    }
 
     public Department(User user) {
         this.id = user.id;
@@ -21,4 +22,13 @@ public class Department{
         this.userDepartmentId = user.userDepartmentId;
     }
 
+    @Override
+    public String toString() {
+        return "Department{" +
+                "id=" + id +
+                ", userName='" + userName + '\'' +
+                ", userAge=" + userAge +
+                ", userDepartmentId=" + userDepartmentId +
+                '}';
+    }
 }
